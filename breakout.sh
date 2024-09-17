@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-source menu.sh
+. menu.sh
 
 intro # Fonction intro présente le jeu et comment y jouer ou on peut aller a la page suivant
 
