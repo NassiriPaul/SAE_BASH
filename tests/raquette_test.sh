@@ -1,7 +1,7 @@
 #!/bin/sh
 
-source ./variables.sh
-source ./raquette.sh
+. ./variables.sh
+. ./raquette.sh
 
 raquette_position_x=6
 raquette_position_y=9

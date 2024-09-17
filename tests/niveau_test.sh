@@ -1,7 +1,7 @@
 #!/bin/sh
 
-source ./variables.sh
-source ./niveau.sh
+. ./variables.sh
+. ./niveau.sh
 
 for numero_test in 1 2 3 4 5 6 7 8 9 10
 do
