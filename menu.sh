@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-choix_menu=0
+choix_menu=2
 
 menu ()
 {
-    echo ""
+    echo "menu"
 }

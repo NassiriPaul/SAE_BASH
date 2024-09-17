@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 . ./variables.sh
 . ./niveau.sh

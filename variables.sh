@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 symbole_raquette=¯
 symbole_brique=█
 symbole_mur=\#
