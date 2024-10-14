@@ -6,5 +6,5 @@ afficher_niveau
 while true; do
     deplacer_balle $balle_position_x $balle_position_y
 
-    sleep 1
+    sleep 0.5
 done

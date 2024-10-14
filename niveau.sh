@@ -51,7 +51,7 @@ init_bot () {
 }
 
 init_ball(){
-    readarray -d "," -t values <<<"$1"
+    readarray -d "," -t values <<< "$1"
     let "balle_position_x=${values[1]}"
     let "balle_position_x_p=${values[1]}"
     let "balle_position_y=${values[2]}"
