@@ -1,6 +1,8 @@
 #!/bin/bash
 
 function ecrire { # X Y Char
+echo "$1 $2 $3"
+sleep 1
     printf "\337\33[%d;%dH%s\338" "$1" "$2" "$3"
 }
 

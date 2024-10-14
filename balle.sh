@@ -3,8 +3,8 @@
 . ./utils.sh
 . ./variables.sh
 
-dir_h=-1 #-1 gauche; 1 droite ?
-dir_v=-1 #-1 haut, ...
+dir_h=-1
+dir_v=-1
 suite_x=-1
 suite_y=-1
 velo=1
@@ -25,8 +25,8 @@ effacer_balle(){
     ecrire $balle_position_y $balle_position_x " "  
 }
 deplacer_balle(){
+    sleep 3
     effacer_balle
-    
     charAt $[$balle_position_x + 1] $balle_position_y
     if [ "$?" -ne 4 ]
     then
@@ -52,4 +52,4 @@ deplacer_balle(){
 
     afficher_balle
 }
-
+echo "tmp">tmp.txt
