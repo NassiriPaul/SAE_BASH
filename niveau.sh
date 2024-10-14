@@ -2,6 +2,7 @@
 
 . ./utils.sh
 . ./variables.sh
+
 lire_niveau () {
     nbr_walls=0
     while IFS='\n' read -r line; do
@@ -14,6 +15,9 @@ lire_niveau () {
         elif [ "${line:0:1}" = 'b' ];
         then
             init_bot $line
+        elif [ "${line:0:1}" = 'o' ];
+        then
+            init_ball $line
         fi
     done < $1;
 }
@@ -46,9 +50,15 @@ init_bot () {
     let "bot_longeur=${values[3]}"
 }
 
-
+init_ball(){
+    readarray -d "," -t values <<<"$1"
+    let "balle_position_x=${values[1]}"
+    let "balle_position_x_p=${values[1]}"
+    let "balle_position_y=${values[2]}"
+    let "balle_position_y_p=${values[2]}"
+}
 afficher_niveau () {
-    clear
+        clear
     for ((idx_wall=1;idx_wall<=$nbr_walls;idx_wall++)); do
         wall_x="wall_x_$idx_wall"
         wall_y="wall_y_$idx_wall"
@@ -66,6 +76,8 @@ afficher_niveau () {
     done
 
     for ((xb=$bot_position_x ; xb<=$bot_position_x+$bot_longeur ; xb++)); do
-        ecrire $bot_position_y $xb $symbole_raquette
-    done
+        ecrire $bot_position_y $xb $symbole_bot
+    done 
+    ecrire $balle_position_y $balle_position_x $symbole_balle
 }
+
