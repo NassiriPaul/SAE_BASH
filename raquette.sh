@@ -4,25 +4,26 @@
 
 
 deplacer_raquette() {
-    echo
-    echo $raquette_position_x $raquette_position_y
     if [ "$key" = "q" ]; then
         charAt $[$raquette_position_x - 1] $raquette_position_y
-        if [ $? == '4' ]
+        result=$?
+        if [ "$result" == '4' ]
         then
+            ecrire $raquette_position_y $[$raquette_position_x + $raquette_longeur] ' '
             raquette_position_x=$((raquette_position_x - 1))
+            ecrire $raquette_position_y $[$raquette_position_x] ${symbole_raquette}
         fi
     fi
     if [ "$key" = "d" ]; then
         charAt $[$raquette_position_x + $raquette_longeur + 1] $raquette_position_y
-        if [ $? == '4' ]
+        result=$?
+        if [ "$result" == '4' ]
         then
+            ecrire $raquette_position_y $[$raquette_position_x] ' '
             raquette_position_x=$((raquette_position_x + 1))
+            ecrire $raquette_position_y $[$raquette_position_x + $raquette_longeur] ${symbole_raquette}
         fi
     fi
-    echo $raquette_position_x $raquette_position_y
-    effacer_raquette
-    #afficher_raquette
 }
 
 effacer_raquette() {
@@ -35,12 +36,10 @@ effacer_raquette() {
 }
 
 afficher_raquette() {
-    local raquette=""
-    for ((i=0; i<raquette_longeur; i++))
+    for ((i=0; i<=raquette_longeur; i++))
     do
-        raquette="${raquette}${symbole_raquette}"
+        ecrire $raquette_position_y $[$raquette_position_x + i] ${symbole_raquette}
     done
-    ecrire $raquette_position_y $raquette_position_x "$raquette"
 }
 
 tester_deplacement() {
