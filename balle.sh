@@ -12,28 +12,19 @@ velo=1
 input="./niveau_test_2.txt"
 
 rebond_hasard(){
-    hasard=$((RANDOM % 3))
-    if [ $hasard -eq 0 ]
+    if [ $# -gt 0 ]
     then
-        dir_h=$((-1))
-    elif [ $hasard -eq 1 ]
-    then
-        dir_h=$((0))
+        direction=$(($1*($RANDOM % 2)))
     else
-        dir_h=$((1))
+        direction=$((1-$RANDOM % 3))
     fi
+
+    dir_h=$direction
 }
 
 update_dir_horiz(){
-    if [ $dir_h -ne 0 ]
-    then
-        dir_h=$(( -1 * dir_h ))
-    else
-        rebond_hasard
-    fi
+    dir_h=$(( -1 * dir_h ))
 }
-
-
 
 update_dir_vert(){
     dir_v=$(( -1 * dir_v ))
@@ -48,32 +39,53 @@ effacer_balle(){
 
 deplacer_balle(){
     effacer_balle
-    
-    charAt $[$balle_position_x + 1] $balle_position_y
-    if [ "$?" -ne 4 ]
+    if [ $dir_h -eq 0 ]
     then
-        update_dir_horiz
-    fi
+        charAt $((balle_position_x - 1)) $((balle_position_y - dir_v))
+        colG=$?
+        charAt $balle_position_x $((balle_position_y + dir_v))
+        ligne=$?
+        charAt $((balle_position_x + 1 )) $((balle_position_y - dir_v))
+        colD=$?
 
-    charAt $[$balle_position_x - 1] $balle_position_y
-    if [ "$?" -ne 4 ]
-    then
-        update_dir_horiz
-    fi
+        if [ $ligne != "4" ]
+        then
+            if [ $colG != "4" ]
+            then
+                rebond_hasard 1
+            elif [ $colD != "4" ]
+            then
+                rebond_hasard -1
+            else
+                rebond_hasard
+            fi
+            update_dir_vert
+        fi
+    else
+        charAt $((balle_position_x + dir_h)) $balle_position_y
+        colonne=$?
+        charAt $((balle_position_x + dir_h)) $((balle_position_y + dir_v))
+        coin=$?
+        charAt $balle_position_x $((balle_position_y + dir_v))
+        ligne=$?
 
-    charAt $balle_position_x $[ $balle_position_y + 1]
-    if [ "$?" -ne 4 ]
-    then
-        update_dir_vert
-        rebond_hasard
+        if [ $colonne != "4" ] && [ $ligne != "4" ]
+        then
+            rebond_hasard $((-1*dir_h))
+            update_dir_vert
+        elif [ $colonne = "4" ] && [ $ligne = "4" ] && [ $coin != "4" ]
+        then
+            rebond_hasard $((-1*dir_h))
+            update_dir_vert
+        elif [ $colonne != "4" ]
+        then
+            update_dir_horiz
+        elif [ $ligne != "4" ]
+        then
+            rebond_hasard
+            update_dir_vert
+        fi
     fi
-    charAt $balle_position_x $[ $balle_position_y - 1]
-    if [ "$?" -ne 4 ]
-    then
-        update_dir_vert
-        rebond_hasard
-    fi
-
     balle_position_x=$[ $balle_position_x + $[ dir_h ] ]
     balle_position_y=$[ $balle_position_y + $[ dir_v ] ]
 
