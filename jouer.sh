@@ -4,7 +4,7 @@
 . ./niveau.sh
 . ./balle.sh
 . ./bot.sh
-
+. ./variables.sh
 lire_niveau map.txt
 afficher_niveau
 

@@ -5,11 +5,7 @@
 
 dir_h=-1 #-1 gauche; 1 droite ?
 dir_v=-1 #-1 haut, ...
-suite_x=-1
-suite_y=-1
-velo=1
 
-input="./niveau_test_2.txt"
 
 rebond_hasard(){
     if [ $# -gt 0 ]
