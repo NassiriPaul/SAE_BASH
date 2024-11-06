@@ -18,6 +18,12 @@ lire_niveau () {
         elif [ "${line:0:1}" = 'o' ];
         then
             init_ball $line
+        elif [ "${line:0:2}" = 'gp' ];
+        then
+            init_goal_player $line
+        elif [ "${line:0:2}" = 'gb' ];
+        then
+            init_goal_bot $line
         fi
     done < $1;
 }
@@ -32,40 +38,54 @@ init_wall () {
     let "wall_L_${nbr_walls}=${values[4]}"
 }
 
+init_goal_bot () {
+    readarray -d "," -t values <<< "$1"
+    let "gb_xs=${values[1]}"
+    let "gb_ys=${values[2]}"
+    let "gb_xe=${values[1]}+${values[3]}"
+    let "gb_ye=${values[2]}+${values[4]}"
+}
+
+init_goal_player () {
+    readarray -d "," -t values <<< "$1"
+    let "gp_xs=${values[1]}"
+    let "gp_ys=${values[2]}"
+    let "gp_xe=${values[1]}+${values[3]}"
+    let "gp_ye=${values[2]}+${values[4]}"
+}
+
 init_player () {
     readarray -d "," -t values <<< "$1"
     let "raquette_position_x=${values[1]}"
-    let "raquette_position_x_p=${values[1]}"
     let "raquette_position_y=${values[2]}"
-    let "raquette_position_y_p=${values[2]}"
     let "raquette_longeur=${values[3]}"
 }
 
 init_bot () {
     readarray -d "," -t values <<< "$1"
     let "bot_position_x=${values[1]}"
-    let "bot_position_x_p=${values[1]}"
     let "bot_position_y=${values[2]}"
-    let "bot_position_y_p=${values[2]}"
     let "bot_longeur=${values[3]}"
 }
 
 init_ball(){
     readarray -d "," -t values <<< "$1"
     let "balle_position_x=${values[1]}"
-    let "balle_position_x_p=${values[1]}"
     let "balle_position_y=${values[2]}"
-    let "balle_position_y_p=${values[2]}"
 }
+
 afficher_niveau () {
-        clear
-    for ((idx_wall=1;idx_wall<=$nbr_walls;idx_wall++)); do
+    clear
+    for ((idx_wall=1;idx_wall<=$nbr_walls;idx_wall++))
+    do
         wall_x="wall_x_$idx_wall"
         wall_y="wall_y_$idx_wall"
         wall_l="wall_l_$idx_wall"
         wall_L="wall_L_$idx_wall"
-        for ((line=wall_x ; line<wall_x+wall_l ; line++)); do
-            for ((column=wall_y ; column<wall_y+wall_L;column++)); do
+        for ((line=wall_x ; line<wall_x+wall_l ; line++))
+        do
+            for ((column=wall_y ; column<wall_y+wall_L;column++))
+            do
                 ecrire $column $line $symbole_mur
             done 
         done 

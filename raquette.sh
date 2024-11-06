@@ -41,7 +41,3 @@ afficher_raquette() {
         ecrire $raquette_position_y $[$raquette_position_x + i] ${symbole_raquette}
     done
 }
-
-tester_deplacement() {
-    
-}
