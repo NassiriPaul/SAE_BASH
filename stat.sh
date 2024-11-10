@@ -8,7 +8,7 @@ scoreB=0;
 res=0
 
 function parcours_histo {
-    if [ -e "./historique.tx" ] 
+    if [ -e "./historique.txt" ] 
     then
     while IFS='\n' read -r line; do
         if [ "${line:0:1}" = 'S' ]
@@ -29,7 +29,7 @@ function parcours_histo {
     done < "./historique.txt" ;
     else
     echo "Pas encore d'historique"
-    sleep 3
+    sleep 2
     menu
     fi
 }

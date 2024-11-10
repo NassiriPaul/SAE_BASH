@@ -16,7 +16,7 @@ do
     if [ $choix -eq 2 ]
     then
         clear
-        echo "A pour faire aller la barre à gauche, D pour faire aller la barre à droite
+        echo "Appuyer sur Q pour faire aller la barre à gauche, et sur D pour faire aller la barre à droite
 Vous controlez la barre du bas, l'objectif est de ne pas laisser la balle dépasser votre barre
         
 Appuyer sur entrée pour retourner au menu"
