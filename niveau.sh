@@ -4,6 +4,7 @@
 . ./variables.sh
 
 lire_niveau () {
+    clear
     nbr_walls=0
     while IFS='\n' read -r line; do
         if [ "${line:0:1}" = 'w' ];

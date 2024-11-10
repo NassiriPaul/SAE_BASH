@@ -1,0 +1,38 @@
+Historique des parties : 
+    
+Victoire de l'ordinateur !
+Score Joueur : 0
+Score Ordinateur : 2
+
+Victoire de l'ordinateur !
+Score Joueur : 2
+Score Ordinateur : 1
+
+Victoire de l'ordinateur !
+Score Joueur : 0
+Score Ordinateur : 2
+
+Victoire de l'ordinateur !
+Score Joueur : 0
+Score Ordinateur : 2
+
+Victoire de l'ordinateur !
+Score Joueur : 0
+Score Ordinateur : 2
+
+Victoire du Joueur !
+Score Joueur : 4
+Score Ordinateur : 1
+
+Victoire de l'ordinateur !
+Score Joueur : 0
+Score Ordinateur : 4
+    
+Victoire de l'ordinateur !
+Score Joueur : 0
+Score Ordinateur : 4
+    
+Victoire du Joueur !
+Score Joueur : 4
+Score Ordinateur : 2
+    
