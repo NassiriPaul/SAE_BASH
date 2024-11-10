@@ -1,47 +1,54 @@
 #!/bin/bash
 
-. ./variables.sh
 . ./raquette.sh
-. ./utils.sh
+. ./niveau.sh
+. ./balle.sh
+. ./bot.sh
+. ./variables.sh
+lire_niveau map.txt
+afficher_niveau
 
-raquette_position_x=5
-raquette_position_y=9
-raquette_longeur=4
 
-#juste pour test déplacement raquette (temporaire)
-clear
-echo "##############"
-for i in {1..10}; do
-  echo "#            #"
-done
-echo "##############"
 
-afficher_raquette
+debut=$(date +%s%3N)
+prochain_deplacement_balle=$debut
+prochain_deplacement_bot=$debut
+prochaine_acceleration=$debut
+while true
+do
+    read -rsn1 -t 0.001 key
+    deplacer_raquette
 
-while true; do
-    key=$(get_key)
+    if [ $(date +%s%3N) -ge "$prochain_deplacement_balle" ]
+    then
+        deplacer_balle
+        prochain_deplacement_balle=$((prochain_deplacement_balle + velocity))
+    fi
 
-    case $key in
-        left)
-            if [ $raquette_position_x -gt 1 ]; then
-                raquette_position_x=$((raquette_position_x - 1))
-            fi
-            ;;
-        right)
-            if [ $((raquette_position_x + raquette_longeur)) -lt 12 ]; then
-                raquette_position_x=$((raquette_position_x + 1))
-            fi
-            ;;
-    esac
+    if [ $(date +%s%3N) -ge "$prochaine_acceleration" ]
+    then
+        if [ $velocity -gt $min_velocity ]
+        then
+            velocity=$((velocity - 5))
+        fi
+        prochaine_acceleration=$((prochaine_acceleration + 2000))
+    fi
 
-    clear
-    echo "##############"
-    for i in {1..10}; do
-      echo "#            #"
-    done
-    echo "##############"
+    if [ $(date +%s%3N) -ge "$prochain_deplacement_bot" ]
+    then
+        deplacer_bot
+        prochain_deplacement_bot=$((prochain_deplacement_bot + 100))
+    fi
     
-    afficher_raquette
+    if [ "$balle_position_y" -ge "$gp_ys" ] && [ "$balle_position_y" -le "$gp_ye" ] && [ "$balle_position_x" -ge "$gp_xs" ] && [ "$balle_position_x" -le "$gp_xe" ]; then
+        lire_niveau
+        afficher_niveau
+        break
+    fi
 
-    sleep 0.1
+    if [ "$balle_position_y" -ge "$gb_ys" ] && [ "$balle_position_y" -le "$gb_ye" ] && [ "$balle_position_x" -ge "$gb_xs" ] && [ "$balle_position_x" -le "$gb_xe" ]; then
+        lire_niveau 
+        afficher_niveau
+        break
+    fi
 done
