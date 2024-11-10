@@ -20,24 +20,35 @@ draw_menu() {
             echo -e "\e[31mJouer\e[0m"
             echo "Instructions"
             echo "Crédits"
+            echo "Statistiques"
             echo "Quitter"
             ;;
         1)
             echo "Jouer"
             echo -e "\e[31mInstructions\e[0m"
             echo "Crédits"
+            echo "Statistiques"
             echo "Quitter"
             ;;
         2)
             echo "Jouer"
             echo "Instructions"
             echo -e "\e[31mCrédits\e[0m"
+            echo "Statistiques"
             echo "Quitter"
             ;;
         3)
             echo "Jouer"
             echo "Instructions"
             echo "Crédits"
+            echo -e "\e[31mStatistiques\e[0m"
+            echo "Quitter"
+            ;;
+        4)
+            echo "Jouer"
+            echo "Instructions"
+            echo "Crédits"
+            echo "Statistiques"
             echo -e "\e[31mQuitter\e[0m"
             ;;
     esac
@@ -54,12 +65,12 @@ menu() {
             up)
                 ((current_selection--))
                 if ((current_selection < 0)); then
-                    current_selection=3
+                    current_selection=4
                 fi
                 ;;
             down)
                 ((current_selection++))
-                if ((current_selection > 3)); then
+                if ((current_selection > 4)); then
                     current_selection=0
                 fi
                 ;;

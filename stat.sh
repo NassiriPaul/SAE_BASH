@@ -1,5 +1,6 @@
 #!/bin/bash
 . ./variables.sh
+. ./menu.sh
 nb_parties=0;
 victoireJ=0;
 scoreJ=0;
@@ -7,6 +8,8 @@ scoreB=0;
 res=0
 
 function parcours_histo {
+    if [ -e "./historique.tx" ] 
+    then
     while IFS='\n' read -r line; do
         if [ "${line:0:1}" = 'S' ]
         then
@@ -24,6 +27,11 @@ function parcours_histo {
             fi
         fi
     done < "./historique.txt" ;
+    else
+    echo "Pas encore d'historique"
+    sleep 3
+    menu
+    fi
 }
 
 function affiche_histo {
@@ -34,7 +42,16 @@ function affiche_histo {
     echo -n "Score total du Joueur = $scoreJ
 Score moyen du Joueur = "
     printf %.2f\\n "$((100 *   $scoreJ/$nb_parties  ))e-2"
+    echo "
+Appuyer sur entrée pour retourner au menu"
+    read -s -n 1 key
+    while [[ $key != "" ]]; do 
+    read -s -n 1 key
+    done
 }
 
-parcours_histo
-affiche_histo
+function statistiques {
+    clear
+    parcours_histo
+    affiche_histo
+}
