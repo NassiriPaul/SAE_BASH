@@ -5,7 +5,9 @@
 . ./balle.sh
 . ./bot.sh
 . ./variables.sh
-lire_niveau map.txt
+. ./score.sh
+map="map.txt" #Si on arrive a faire une fonction de carte random, on pourra faire un $? 
+lire_niveau "$map"
 afficher_niveau
 
 
@@ -14,7 +16,16 @@ debut=$(date +%s%3N)
 prochain_deplacement_balle=$debut
 prochain_deplacement_bot=$debut
 prochaine_acceleration=$debut
-while true
+scoreP=0
+scoreB=0
+pos_score=4
+
+function reset_velocity {
+    velocity=200
+}
+
+dessine_score $pos_score $[ $pos_score + 1 ] $scoreB $scoreP
+while [ $scoreB -lt $score_victoire ] && [ $scoreP -lt $score_victoire ] 
 do
     read -rsn1 -t 0.001 key
     deplacer_raquette
@@ -41,14 +52,37 @@ do
     fi
     
     if [ "$balle_position_y" -ge "$gp_ys" ] && [ "$balle_position_y" -le "$gp_ye" ] && [ "$balle_position_x" -ge "$gp_xs" ] && [ "$balle_position_x" -le "$gp_xe" ]; then
-        lire_niveau
+        scoreB=$[ $scoreB + 1 ]
+        lire_niveau "$map"
         afficher_niveau
-        break
+        dessine_score $pos_score $[ $pos_score + 1 ] $scoreB $scoreP
+        reset_velocity
     fi
 
     if [ "$balle_position_y" -ge "$gb_ys" ] && [ "$balle_position_y" -le "$gb_ye" ] && [ "$balle_position_x" -ge "$gb_xs" ] && [ "$balle_position_x" -le "$gb_xe" ]; then
-        lire_niveau 
+        scoreP=$[ $scoreP + 1 ]
+        lire_niveau "$map"
         afficher_niveau
-        break
+        dessine_score $pos_score $[ $pos_score + 1 ] $scoreB $scoreP
+        reset_velocity
     fi
 done
+
+test -e "./historique.txt"
+if [ $? -eq 1 ]
+then
+    echo "Historique des parties : 
+    " >> ./historique.txt
+fi
+if [ $scoreB -gt $scoreP ]
+then
+echo "Victoire de l'ordinateur !
+Score Joueur : $scoreP
+Score Ordinateur : $scoreB
+" >> ./historique.txt
+else
+echo "Victoire du Joueur !
+Score Joueur : $scoreP
+Score Ordinateur : $scoreB
+" >> ./historique.txt
+fi
