@@ -11,9 +11,9 @@ Documentation rapide de notre jeu pong.
 
 
 ## Usage
-
+Ouvrir le terminal au maximum, sinon ça peut provoquer des bugs de collisions.
 ```terminal
-chmod -777 -r . # dans le repertoire de main.sh
+chmod +x main.sh # dans le repertoire de main.sh
 ./main.sh
 ```
 
