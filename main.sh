@@ -1,8 +1,8 @@
 #!/bin/bash
 
-. ./menu.sh
-. ./jouer.sh
-. ./stat.sh
+. ./scripts/menu.sh
+. ./scripts/jouer.sh
+. ./scripts/stat.sh
 menu
 
 choix=$?
